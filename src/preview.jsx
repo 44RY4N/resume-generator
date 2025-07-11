@@ -5,7 +5,7 @@ import github from "./assets/github.png"
 import phone from "./assets/phone.png"
 import {useState} from "react";
 
-function Preview({obj}){
+function Preview({obj, setInfo}){
 
     
   let educationList = obj.Education;
@@ -25,7 +25,7 @@ function Preview({obj}){
     <div className='neck'>
         <div className="name edu">Education</div>
         {educationList.map((edu, index) => (
-        <Education edu={edu} index={index} />
+        <Education edu={edu} index={index} setInfo = {setInfo} />
         ))}
         <div className="name edu">Personal Projects</div>
         {projectList.map((pro, index) => (
@@ -43,23 +43,27 @@ function Preview({obj}){
     </>
 }
 
-function Education ({edu, index}){
-const [current, setCurrent] = useState("Grade");
+function Education ({edu, index, setInfo}){
+ const handleClick = () => {
+    let next;
+    if (edu.displayGradeAs === "Grade") next = "CGPA";
+    else if (edu.displayGradeAs === "CGPA") next = "CPI";
+    else if (edu.displayGradeAs === "CPI") next = "Percentage";
+    else next = "Grade";
 
-function handleClick(){
-if(current == "Grade"){
-    setCurrent("CGPA")
-}
-else if(current == "CGPA"){
-    setCurrent("CPI")
-}
-else if(current == "CPI"){
-    setCurrent("Percentage")
-}
-else{
-    setCurrent("Grade");
-}
-}
+    // Update info state
+    setInfo((prevInfo) => {
+      const updated = [...prevInfo.Education];
+      updated[index] = {
+        ...updated[index],
+        displayGradeAs: next,
+      };
+      return {
+        ...prevInfo,
+        Education: updated,
+      };
+    });
+  };
 
     return <>
             <div className='education'>
@@ -68,7 +72,7 @@ else{
             <div className='from' key={index}>{edu.from} -</div>
             <div className='to' key={index}>{edu.to}</div>
             <div className='grade' key={index}>
-                <div className='current' onClick={handleClick}>{current}</div>
+                <div className='current' onClick={handleClick}>{edu.displayGradeAs}</div>
                 : {edu.grade}</div>
             </div>
             </>

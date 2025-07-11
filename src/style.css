@@ -20,6 +20,7 @@ h3{
   margin:0;
   padding:0;
   box-sizing: border-box;
+  font-size: 20px;
 }
 
 body {
@@ -27,6 +28,28 @@ body {
   height: 100vh;
 }
 
+button{
+  background-color: #242424;
+  padding:0.2vw;
+  margin-left:20px;
+  border-radius: 6px;
+}
+
+button:hover{
+  cursor: pointer;
+  background-color: #ffffff;
+  color: black;
+}
+
+.download{
+  background-color: lime;
+  color:black;
+}
+
+.download:hover{
+  background-color: #242424;
+  color:lime;
+}
 
 #app {
   display: grid;
@@ -166,7 +189,7 @@ img{
 
 .education{
   display: grid;
-  grid-template-columns: 1fr 1.25fr 0.15fr 0.65fr;
+  grid-template-columns: 1fr 1.20fr 0.20fr 0.65fr;
   grid-template-rows: 1fr 1fr;
   margin-bottom: 10px;
 }
@@ -243,6 +266,15 @@ img{
 .achievetitle{
   font-weight: bold;
   font-size:15px;
+}
+
+.achievedesc{
+  margin-right:100px ;
+}
+
+
+body{
+  overflow-x: hidden;
 }
 
 

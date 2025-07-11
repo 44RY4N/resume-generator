@@ -1,6 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import {Preview} from "./preview.jsx";
-import html2pdf from 'html2pdf.js';
+import {generatePDF} from "./generatePDF.js"
+
 
 
 
@@ -19,27 +20,10 @@ const initialInfo = {
 
 function App() {
   const [info, setInfo] = useState(initialInfo);
-  const previewRef = useRef();
 
-  // Handle PDF download
   const handleDownloadPDF = () => {
-    const element = previewRef.current;
-    const options = {
-      margin: 0,
-      filename: 'resume.pdf',
-      image: { type: 'jpeg', quality: 0.98 },
-     html2canvas: {
-        scale: 2, // Increase resolution
-        useCORS: true, // Handle external images if any
-        letterRendering: true, // Improve text rendering
-        width: 666, // A4 width in mm
-      },
-
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
-
-    html2pdf().set(options).from(element).save();
-  };
+  generatePDF(info);
+};
 
   const personal = [
     ["Name", "text"],
@@ -63,6 +47,7 @@ function App() {
             from: "",
             to: "",
             grade: "",
+            displayGradeAs: "Grade",  //
           },
         ],
       };
@@ -176,16 +161,16 @@ function App() {
         />
       ))}
       <h3>Current State</h3>
-      <Button tag="Log State" handleClick={() => console.log("Current info state:", info)} />
-        <Button tag="Download Resume" handleClick={handleDownloadPDF} />
+        <button onClick={handleDownloadPDF} className = "download" style={{ marginLeft: '20px' }}>Download Resume</button>
     </div>
-    <div ref={previewRef} className='preview'><Preview obj = {info}/></div>
+    <div className='preview'><Preview obj = {info} setInfo = {setInfo}/></div>
+    <div className='footer'></div>
     </>
   );
 }
 
-function Button({ tag, handleClick }) {
-  return <button onClick={handleClick} style={{ margin: '5px' }}>{tag}</button>;
+function Button({ tag, handleClick}) {
+  return <button onClick={handleClick} style={{ marginLeft: '20px' }}>{tag}</button>;
 }
 
 function Info({ arr, info, setInfo }) {
