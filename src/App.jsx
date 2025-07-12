@@ -86,6 +86,7 @@ function App() {
             index: prevInfo.Projects.length,
             title: "",
             desc: "",
+            link: "",
             feat: [],
           },
         ],
@@ -377,6 +378,11 @@ function ProjectsInput({ index, project, setInfo }) {
         label="Description"
         value={project.desc}
         onChange={(e) => handleChange(e, 'desc')}
+      />
+      <Input
+        label="Link"
+        value={(project.link) && project.link}
+        onChange={(e) => handleChange(e, 'link')}
       />
       <h5>Features</h5>
       <Button tag="Add Feature" handleClick={addFeature} />

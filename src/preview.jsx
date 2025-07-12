@@ -85,6 +85,7 @@ function Project({pro,index}){
     <div className='project'>
         <div className="protitle" key={index}>• {pro.title}</div>
         <div className='prodesc' key={index}>{pro.desc}</div>
+        <a className='prolink' href={pro.link} key={index}>{pro.link}</a>
         <ul className='features'>
         {featuresList.map((feat,index) =>{
             return <div className='feat' key={index}>- {feat} </div>
