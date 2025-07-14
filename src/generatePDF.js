@@ -54,9 +54,9 @@ if(info.Contact){
 if (info.LinkedIn) {
   doc.addImage(linkedinBase64, 'PNG', 20, y, iconSize, iconSize);
   doc.textWithLink(` ${info.LinkedIn}`, 24, y + 3,{url:info["LinkedIn Link:"]});
-  y += 8;
   checkAndAddPage();
 }
+y += 8;
 
 if (info.Email) {
   doc.addImage(emailBase64, 'PNG', 140, y, iconSize, iconSize);
@@ -67,9 +67,9 @@ if (info.Email) {
 if(info.GitHub){
   doc.addImage(githubBase64, 'PNG', 20, y, iconSize, iconSize);
   doc.textWithLink(` ${info.GitHub}`, 24, y + 3,{url:info["GitHub Link:"]});
-  y += 12;
   checkAndAddPage();
 }
+ y += 12;
 
 if(info.Education.length!=0)
 {
