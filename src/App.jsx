@@ -11,7 +11,9 @@ const initialInfo = {
   Contact: "",
   Email: "",
   LinkedIn: "",
+  "LinkedIn Link:": "",
   GitHub: "",
+  "GitHub Link:" : "",
   Education: [],
   Projects: [],
   TechnicalSkills: [],
@@ -29,8 +31,10 @@ function App() {
     ["Name", "text"],
     ["Contact", "number"],
     ["Email", "email"],
-    ["LinkedIn", "url"],
-    ["GitHub", "url"],
+    ["LinkedIn", "text"],
+    ["LinkedIn Link:","url"],
+    ["GitHub", "text"],
+    ["GitHub Link:","url"],
   ];
 
   const addEducation = () => {

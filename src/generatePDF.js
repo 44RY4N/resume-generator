@@ -45,27 +45,34 @@ const generatePDF = async (info) => {
   doc.setFont(undefined, 'normal');
   doc.setFontSize(12);
   const iconSize = 4;
-
+if(info.Contact){
   doc.addImage(phoneBase64, 'PNG', 140, y, iconSize, iconSize);
   doc.text(` ${info.Contact}`, 144, y + 3);
+  checkAndAddPage();
+}
+
+if (info.LinkedIn) {
+  doc.addImage(linkedinBase64, 'PNG', 20, y, iconSize, iconSize);
+  doc.textWithLink(` ${info.LinkedIn}`, 24, y + 3,{url:info["LinkedIn Link:"]});
   y += 8;
   checkAndAddPage();
+}
 
+if (info.Email) {
   doc.addImage(emailBase64, 'PNG', 140, y, iconSize, iconSize);
   doc.text(` ${info.Email}`, 144, y + 3);
-  y += 8;
   checkAndAddPage();
+}
 
-  doc.addImage(linkedinBase64, 'PNG', 20, y, iconSize, iconSize);
-  doc.text(` ${info.LinkedIn}`, 24, y + 3);
-  y += 8;
-  checkAndAddPage();
-
+if(info.GitHub){
   doc.addImage(githubBase64, 'PNG', 20, y, iconSize, iconSize);
-  doc.text(` ${info.GitHub}`, 24, y + 3);
+  doc.textWithLink(` ${info.GitHub}`, 24, y + 3,{url:info["GitHub Link:"]});
   y += 12;
   checkAndAddPage();
+}
 
+if(info.Education.length!=0)
+{
   // Education
   doc.setFontSize(18);
   doc.text('Education', 20, y);
@@ -91,7 +98,9 @@ const generatePDF = async (info) => {
     y += 15;
     checkAndAddPage();
   });
+}
 
+if(info.Projects.length!=0){
   // Projects
   doc.setFontSize(18);
   y += 5;
@@ -105,7 +114,7 @@ const generatePDF = async (info) => {
   info.Projects.forEach((proj) => {
     doc.setFontSize(14);
     doc.setFont(undefined, 'bold');
-    doc.text(`• ${proj.title}`, 20, y);
+    doc.textWithLink(`• ${proj.title}`, 20, y,{url:proj.link});
     y += 6;
     checkAndAddPage();
 
@@ -118,10 +127,6 @@ const generatePDF = async (info) => {
       y += lineHeight;
       checkAndAddPage();
     });
-    if(proj.link){
-    doc.text(proj.link,20,y);
-    y += 6;
-    }
     proj.feat.forEach((feat) => {
       doc.text(`- `, 24, y);
       const featLines = doc.splitTextToSize(feat, 164);
@@ -134,7 +139,9 @@ const generatePDF = async (info) => {
     y += 4;
     checkAndAddPage();
   });
+}
 
+if(info.TechnicalSkills.length!=0){
   // Technical Skills
   doc.setFontSize(18);
   y += 5;
@@ -162,7 +169,10 @@ const generatePDF = async (info) => {
   });
   y += 4;
   checkAndAddPage();
+}
 
+
+if(info.Achievements.length!=0){
   // Achievements
   doc.setFontSize(18);
   doc.text('Achievements', 20, y);
@@ -187,6 +197,7 @@ const generatePDF = async (info) => {
       checkAndAddPage();
     });
   });
+}
 
   // Save PDF
   doc.save('resume.pdf');

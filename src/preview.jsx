@@ -15,27 +15,27 @@ function Preview({obj, setInfo}){
      return <>
     <div className='head'>
     <div className="bold name">{obj.Name}</div>
-    <div className='email'><img src={emailB} />{obj.Email}</div>
-    <div className='linkedin'><img src={linked}></img><a href={obj.LinkedIn} target="_blank" rel="noopener noreferrer">{obj.LinkedIn}</a></div>
+    <div className='email'>{obj.Email && <img src={emailB} />}{obj.Email}</div>
+    <div className='linkedin'>{obj.LinkedIn && <img src={linked}></img>}<a href={obj["LinkedIn Link:"]} target="_blank" rel="noopener noreferrer">{obj.LinkedIn}</a></div>
 
-   <div className='github'><img src={github}></img><a href={obj.GitHub} target="_blank" rel="noopener noreferrer">{obj.GitHub}</a></div>
+   <div className='github'>{obj.GitHub && <img src={github}></img>}<a href={obj["GitHub Link:"]} target="_blank" rel="noopener noreferrer">{obj.GitHub}</a></div>
 
-    <div className='phone'><img src={phone}></img>{obj.Contact}</div>
+    <div className='phone'>{obj.Contact && <img src={phone}></img>}{obj.Contact}</div>
     </div>
     <div className='neck'>
-        <div className="name edu">Education</div>
+        {educationList.length != 0 &&<div className="name edu">Education</div>}
         {educationList.map((edu, index) => (
         <Education edu={edu} index={index} setInfo = {setInfo} />
         ))}
-        <div className="name edu">Personal Projects</div>
+        {projectList.length != 0 &&<div className="name edu">Personal Projects</div>}
         {projectList.map((pro, index) => (
         <Project pro={pro} index={index} />
         ))}
-        <div className="name edu">Technical Skills and Interests</div>
+        { skillList.length != 0 && <div className="name edu">Technical Skills and Interests</div>}
         {skillList.map((skill, index) => (
         <Skill skill={skill} index={index} />
         ))}
-        <div className="name edu">Achievements</div>
+        {achievementList.length != 0 && <div className="name edu">Achievements</div>}
         {achievementList.map((achieve, index) => (
         <Achieve achieve={achieve} index={index} />
         ))}
@@ -83,9 +83,8 @@ function Project({pro,index}){
     let featuresList = pro.feat;
     return <>
     <div className='project'>
-        <div className="protitle" key={index}>• {pro.title}</div>
+        <a className='prolink' href={pro.link} key={index}><div className="protitle" key={index}>• {pro.title}</div></a>
         <div className='prodesc' key={index}>{pro.desc}</div>
-        <a className='prolink' href={pro.link} key={index}>{pro.link}</a>
         <ul className='features'>
         {featuresList.map((feat,index) =>{
             return <div className='feat' key={index}>- {feat} </div>
